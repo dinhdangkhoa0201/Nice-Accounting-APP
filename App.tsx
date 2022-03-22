@@ -1,22 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import React from "react";
+import {NativeBaseProvider} from "native-base"
+import {Navigation} from "./navigation/Navigation";
+import { LogBox } from 'react-native';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
-
-  if (!isLoadingComplete) {
-    return null;
-  } else {
+    LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+    LogBox.ignoreAllLogs();//Ignore all log notifications
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+        <NativeBaseProvider>
+            <Navigation/>
+        </NativeBaseProvider>
     );
-  }
 }
